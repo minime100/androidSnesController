@@ -7,28 +7,38 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import at.game.server.parsing.InputStreamParser;
 
+/**
+ * waiting for client tcp requests to the specified tcp port. Add handling for
+ * client requests by adding {@link ServerResponseListener} to
+ * {@link Server.addServerResponseListener}
+ */
 public class Server extends Thread {
-	private ServerSocket mainSocket;
-	private int port = 50101;
+	private Logger logger = Logger.getLogger(getClass());
+	ServerSocket mainSocket;
+	private int port;
 	private boolean running = false;
 	private Set<ServerResponseListener> responseListeners = new HashSet<ServerResponseListener>();
 
-	public Server() {
-		super("Server" + System.currentTimeMillis());
+	public Server(int port) {
+		super("server" + System.currentTimeMillis());
+		this.port = port;
 	}
 
 	@Override
 	public void run() {
-
+		logger.debug("starting server on port " + port);
 		running = true;
 		try {
 			mainSocket = new ServerSocket(port);
 
 			while (running) {
 				Socket connectedSocket = mainSocket.accept();
-				System.out.println("Connection accepted");
+				logger.debug("connection accepted from "
+						+ connectedSocket.getInetAddress().toString());
 
 				InputStream is = connectedSocket.getInputStream();
 				InputStreamParser parser = new InputStreamParser();
@@ -41,21 +51,26 @@ public class Server extends Thread {
 			}
 		} catch (IOException e) {
 			if (running) {
-				e.printStackTrace();
+				logger.error("exception thrown while waiting/retrieving a message: "
+						+ e.getClass().getName() + " " + e.getMessage());
 				running = false;
+			} else {
+				logger.trace("server shouldn't be running anyway, but exception was thrown: "
+						+ e.getClass().getName() + " " + e.getMessage());
 			}
 		}
 	}
 
 	public synchronized void stopServer() {
+		logger.debug("stopping server...");
 		running = false;
 
 		if (!mainSocket.isClosed()) {
 			try {
 				mainSocket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("tried to close the server socket, but failed. cause: "
+						+ e.getClass().getName() + " " + e.getMessage());
 			}
 		}
 	}

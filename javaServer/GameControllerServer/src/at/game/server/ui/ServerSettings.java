@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 import at.game.server.network.Server;
 import at.game.server.network.ServerResponseListener;
 
+/**
+ * the main page of the server configuration
+ */
 public class ServerSettings extends JFrame {
 
 	/**
@@ -49,7 +52,7 @@ public class ServerSettings extends JFrame {
 					server.stopServer();
 					startStopServer.setText("start");
 				} else {
-					server = new Server();
+					server = new Server(50101);
 					server.start();
 					startStopServer.setText("stop");
 					server.addServerResponseListener(new ServerResponseListener() {

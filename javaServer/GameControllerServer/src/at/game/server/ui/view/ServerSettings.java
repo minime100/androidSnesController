@@ -1,4 +1,4 @@
-package at.game.server.ui;
+package at.game.server.ui.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,6 +31,7 @@ public class ServerSettings extends JFrame {
 	public ServerSettings() {
 		initComponents();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(200, 200);
 	}
 
 	/**
@@ -42,13 +43,20 @@ public class ServerSettings extends JFrame {
 		serverStatusTxt = new JLabel("server status:");
 		serverStatus = new JLabel();
 		serverResponse = new JLabel();
+		
+		setupStartStopServerButton();
+		setupLayout();
+		updateIsRunningText();
+	}
+
+	private void setupStartStopServerButton() {
 		startStopServer = new JButton("start");
 
 		startStopServer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if ((server==null) ? false : server.isRunning()) {
+				if ((server == null) ? false : server.isRunning()) {
 					server.stopServer();
 					startStopServer.setText("start");
 				} else {
@@ -56,16 +64,19 @@ public class ServerSettings extends JFrame {
 					server.start();
 					startStopServer.setText("stop");
 					server.addServerResponseListener(new ServerResponseListener() {
-						
+
 						@Override
 						public void handleResponse(String serverResponse) {
-							ServerSettings.this.serverResponse.setText(serverResponse);
+							ServerSettings.this.serverResponse
+									.setText(serverResponse);
 						}
 					});
 				}
 			}
 		});
+	}
 
+	private void setupLayout() {
 		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setAutoCreateGaps(true);
@@ -79,9 +90,10 @@ public class ServerSettings extends JFrame {
 				.addComponent(serverStatus).addComponent(serverResponse));
 
 		pack();
+	}
 
+	private void updateIsRunningText() {
 		TimerTask task = new TimerTask() {
-
 			@Override
 			public void run() {
 				if (server == null)

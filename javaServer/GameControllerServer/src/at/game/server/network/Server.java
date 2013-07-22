@@ -14,41 +14,43 @@ public class Server extends Thread {
 	private int port = 50101;
 	private boolean running = false;
 	private Set<ServerResponseListener> responseListeners = new HashSet<ServerResponseListener>();
-	
+
 	public Server() {
 		super("Server" + System.currentTimeMillis());
 	}
-	
+
 	@Override
 	public void run() {
-		
+
 		running = true;
 		try {
 			mainSocket = new ServerSocket(port);
-			
+
 			while (running) {
 				Socket connectedSocket = mainSocket.accept();
-				
+				System.out.println("Connection accepted");
+
 				InputStream is = connectedSocket.getInputStream();
 				InputStreamParser parser = new InputStreamParser();
 				String clientMessage = parser.parseFromInputStream(is);
-				for(ServerResponseListener listener : responseListeners) {
+				for (ServerResponseListener listener : responseListeners) {
 					synchronized (listener) {
 						listener.handleResponse(clientMessage);
 					}
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			running = false;
+			if (running) {
+				e.printStackTrace();
+				running = false;
+			}
 		}
 	}
-	
+
 	public synchronized void stopServer() {
 		running = false;
-		
-		if(!mainSocket.isClosed()) {
+
+		if (!mainSocket.isClosed()) {
 			try {
 				mainSocket.close();
 			} catch (IOException e) {
@@ -61,7 +63,7 @@ public class Server extends Thread {
 	public boolean isRunning() {
 		return running;
 	}
-	
+
 	public void addServerResponseListener(ServerResponseListener listener) {
 		responseListeners.add(listener);
 	}

@@ -27,6 +27,7 @@ public class ServerSettings extends JFrame {
 
 	public ServerSettings() {
 		initComponents();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/**

@@ -1,5 +1,0 @@
-INDEX VERSION 1.126+C:\android\androidSnesController\app\.metadata\.plugins\org.eclipse.jdt.core
-1081208016.index
-3709044619.index
-3230561964.index
-2633321083.index

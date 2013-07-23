@@ -22,7 +22,8 @@ public class Server extends Thread {
 	private int port;
 	private boolean running = false;
 	private Set<ServerResponseListener> responseListeners = new HashSet<ServerResponseListener>();
-
+	private Set<ServerStateChangedListener> stateChangedListeners = new HashSet<ServerStateChangedListener>();
+	
 	public Server(int port) {
 		super("server" + System.currentTimeMillis());
 		this.port = port;
@@ -54,6 +55,7 @@ public class Server extends Thread {
 				logger.error("exception thrown while waiting/retrieving a message: "
 						+ e.getClass().getName() + " " + e.getMessage());
 				running = false;
+				fireServerStateChangedListeners();
 			} else {
 				logger.trace("exception was thrown, but server has been stopped anyway: "
 						+ e.getClass().getName() + " " + e.getMessage());
@@ -73,6 +75,8 @@ public class Server extends Thread {
 						+ e.getClass().getName() + " " + e.getMessage());
 			}
 		}
+		
+		fireServerStateChangedListeners();
 	}
 
 	public boolean isRunning() {
@@ -81,5 +85,15 @@ public class Server extends Thread {
 
 	public void addServerResponseListener(ServerResponseListener listener) {
 		responseListeners.add(listener);
+	}
+	
+	public void addServerStateChangeListener(ServerStateChangedListener listener) {
+		stateChangedListeners.add(listener);
+	}
+	
+	private void fireServerStateChangedListeners() {
+		for(ServerStateChangedListener listener : stateChangedListeners) {
+			listener.serverStateChanged();
+		}
 	}
 }

@@ -11,6 +11,7 @@ public class ServerSettingsModel {
 	private String txtServerStatus;
 	private String clientMessage;
 	private String txtStartStopButton;
+	private String serverResponse;
 	private int port;
 	public Set<ModelDataChangedListener> dataChangedListeners = new HashSet<ModelDataChangedListener>();
 	
@@ -44,11 +45,16 @@ public class ServerSettingsModel {
 	public void setPort(int port) {
 		this.port = port;
 	}
+	public String getServerResponse() {
+		return serverResponse;
+	}
+	public void setServerResponse(String serverResponse) {
+		this.serverResponse = serverResponse;
+	}
 	
 	public void addModelDataChangedListener(ModelDataChangedListener listener) {
 		dataChangedListeners.add(listener);
 	}
-	
 	public void dataHasBeenUpdated() {
 		logger.debug("model data updated, firing data changed listeners");
 		for(ModelDataChangedListener listener : dataChangedListeners) {

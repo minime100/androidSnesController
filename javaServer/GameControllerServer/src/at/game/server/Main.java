@@ -2,7 +2,7 @@ package at.game.server;
 
 import org.apache.log4j.Logger;
 
-import at.game.server.ui.view.ServerSettings;
+import at.game.server.ui.controller.ServerSettingsController;
 
 public class Main {
 
@@ -15,11 +15,8 @@ public class Main {
 		Logger.getLogger("Main").trace(System.getProperty("java.vm.name"));
 		Logger.getLogger("Main").trace(System.getProperty("java.version"));
 		
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new ServerSettings().setVisible(true);
-			}
-		});
+		ServerSettingsController controller = new ServerSettingsController();
+		controller.init();
 	}
 
 }

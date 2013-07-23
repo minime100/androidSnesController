@@ -1,18 +1,12 @@
 package at.game.server.ui.view;
 
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import at.game.server.network.Server;
-import at.game.server.network.ServerResponseListener;
 import at.game.server.ui.model.ModelDataChangedListener;
 import at.game.server.ui.model.ServerSettingsModel;
 
@@ -25,15 +19,10 @@ public class ServerSettings extends JFrame {
 	private JLabel serverStatus;
 	private JLabel serverResponse;
 	private JButton startStopServer;
-	private Server server;
 	private ServerSettingsModel model = new ServerSettingsModel();
 
-	public ServerSettings() {
-		model.setClientMessage("");
-		model.setLblServerStatus("server status:");
-		model.setPort(50101);
-		model.setTxtServerStatus("stopped");
-		model.setTxtStartStopButton("start");
+	public ServerSettings(ServerSettingsModel model) {
+		this.model = model;
 		model.addModelDataChangedListener(new ModelDataChangedListener() {
 			@Override
 			public void dataChanged() {
@@ -55,36 +44,9 @@ public class ServerSettings extends JFrame {
 		serverStatusTxt = new JLabel();
 		serverStatus = new JLabel();
 		serverResponse = new JLabel();
-
-		setupStartStopServerButton();
+		startStopServer = new JButton();
 		setupLayout();
-		updateIsRunningText();
-	}
-
-	private void setupStartStopServerButton() {
-		startStopServer = new JButton(model.getTxtStartStopButton());
-
-		startStopServer.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if ((server == null) ? false : server.isRunning()) {
-					server.stopServer();
-					model.setTxtStartStopButton("start");
-				} else {
-					server = new Server(50101);
-					server.start();
-					model.setTxtStartStopButton("stop");
-					server.addServerResponseListener(new ServerResponseListener() {
-						@Override
-						public void handleResponse(String serverResponse) {
-							ServerSettings.this.serverResponse
-									.setText(serverResponse);
-						}
-					});
-				}
-				model.dataHasBeenUpdated();
-			}
-		});
+		updateContent();
 	}
 
 	private void setupLayout() {
@@ -103,26 +65,14 @@ public class ServerSettings extends JFrame {
 		pack();
 	}
 
-	private void updateIsRunningText() {
-		TimerTask task = new TimerTask() {
-			@Override
-			public void run() {
-				if (server == null)
-					model.setTxtServerStatus("Stopped");
-				else
-					model.setTxtServerStatus(server.isRunning() ? "Running"
-							: "Stopped");
-				model.dataHasBeenUpdated();
-			}
-		};
-
-		Timer timer = new Timer();
-		timer.schedule(task, 100, 100);
+	public void setStartStopBtnActionListener(ActionListener listener) {
+		startStopServer.addActionListener(listener);
 	}
 
 	private void updateContent() {
 		startStopServer.setText(model.getTxtStartStopButton());
 		serverStatusTxt.setText(model.getLblServerStatus());
 		serverStatus.setText(model.getTxtServerStatus());
+		serverResponse.setText(model.getServerResponse());
 	}
 }

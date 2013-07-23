@@ -56,7 +56,7 @@ public class ServerSettingsModel {
 		dataChangedListeners.add(listener);
 	}
 	public void dataHasBeenUpdated() {
-		logger.debug("model data updated, firing data changed listeners");
+		logger.trace("model data updated, firing data changed listeners");
 		for(ModelDataChangedListener listener : dataChangedListeners) {
 			listener.dataChanged();
 		}

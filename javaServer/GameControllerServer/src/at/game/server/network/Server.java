@@ -16,7 +16,7 @@ import at.game.server.parsing.InputStreamParser;
  * client requests by adding {@link ServerResponseListener} to
  * {@link Server.addServerResponseListener}
  */
-public class Server extends Thread {
+class Server extends Thread {
 	private Logger logger = Logger.getLogger(getClass());
 	ServerSocket mainSocket;
 	private int port;
@@ -35,6 +35,7 @@ public class Server extends Thread {
 		running = true;
 		try {
 			mainSocket = new ServerSocket(port);
+			fireServerStateChangedListeners(true);
 
 			while (running) {
 				Socket connectedSocket = mainSocket.accept();
@@ -52,10 +53,10 @@ public class Server extends Thread {
 			}
 		} catch (IOException e) {
 			if (running) {
-				logger.error("exception thrown while waiting/retrieving a message: "
+				logger.error("exception thrown while waiting for/retrieving a message: "
 						+ e.getClass().getName() + " " + e.getMessage());
 				running = false;
-				fireServerStateChangedListeners();
+				fireServerStateChangedListeners(false);
 			} else {
 				logger.trace("exception was thrown, but server has been stopped anyway: "
 						+ e.getClass().getName() + " " + e.getMessage());
@@ -64,7 +65,7 @@ public class Server extends Thread {
 	}
 
 	public synchronized void stopServer() {
-		logger.debug("stopping server...");
+		logger.trace("stopping server...");
 		running = false;
 
 		if (!mainSocket.isClosed()) {
@@ -76,7 +77,7 @@ public class Server extends Thread {
 			}
 		}
 		
-		fireServerStateChangedListeners();
+		fireServerStateChangedListeners(false);
 	}
 
 	public boolean isRunning() {
@@ -91,9 +92,9 @@ public class Server extends Thread {
 		stateChangedListeners.add(listener);
 	}
 	
-	private void fireServerStateChangedListeners() {
+	private void fireServerStateChangedListeners(boolean newState) {
 		for(ServerStateChangedListener listener : stateChangedListeners) {
-			listener.serverStateChanged();
+			listener.serverStateChanged(newState);
 		}
 	}
 }

@@ -10,7 +10,7 @@ public class InputStreamParser {
 	Logger logger = Logger.getLogger(getClass());
 
 	public String parseFromInputStream(InputStream in) throws IOException {
-		logger.debug("parsing...");
+		logger.trace("parsing...");
 		String parsedString = IOUtils.toString(in, "UTF-8");
 		logger.debug("parsed message: " + parsedString);
 		return parsedString;

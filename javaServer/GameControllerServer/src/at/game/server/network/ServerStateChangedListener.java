@@ -1,5 +1,5 @@
 package at.game.server.network;
 
 public interface ServerStateChangedListener {
-	public void serverStateChanged();
+	public void serverStateChanged(boolean serverIsRunning);
 }

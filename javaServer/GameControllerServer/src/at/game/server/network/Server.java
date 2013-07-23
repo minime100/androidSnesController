@@ -55,7 +55,7 @@ public class Server extends Thread {
 						+ e.getClass().getName() + " " + e.getMessage());
 				running = false;
 			} else {
-				logger.trace("server shouldn't be running anyway, but exception was thrown: "
+				logger.trace("exception was thrown, but server has been stopped anyway: "
 						+ e.getClass().getName() + " " + e.getMessage());
 			}
 		}

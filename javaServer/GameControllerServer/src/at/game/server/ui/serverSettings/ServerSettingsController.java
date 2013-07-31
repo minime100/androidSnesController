@@ -4,29 +4,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import at.game.server.network.ServerDispatcher;
-import at.game.server.network.ServerResponseListener;
 import at.game.server.network.ServerStateChangedListener;
 
 public class ServerSettingsController {
-	ServerSettingsView settings;
-	ServerSettingsModel model;
+	private ServerSettingsView settings;
+	private ServerSettingsModel model;
 	private ServerDispatcher server;
-
+	
 	public void init() {
 		setUpServer();
 		setUpModel();
 		setUpUi();
 	}
-	
+
 	private void setUpServer() {
 		server = new ServerDispatcher(50101);
-		server.addServerResponseListener(new ServerResponseListener() {
-			@Override
-			public void handleResponse(String serverResponse) {
-				model.setServerResponse(serverResponse);
-				model.dataHasBeenUpdated();
-			}
-		});
+		server.addServerResponseListener(new SnesServerResponseListener(model));
 		server.addServerStateChangeListener(new ServerStateChangedListener() {
 			@Override
 			public void serverStateChanged(boolean serverIsRunning) {
@@ -38,7 +31,7 @@ public class ServerSettingsController {
 			}
 		});
 	}
-	
+
 	private void setUpModel() {
 		model = new ServerSettingsModel();
 		model.setClientMessage("");
@@ -49,7 +42,7 @@ public class ServerSettingsController {
 		model.setTxtStartStopButton("start");
 		model.setCanPortBeModified(true);
 	}
-	
+
 	private void setUpUi() {
 		settings = new ServerSettingsView(model);
 		settings.setStartStopBtnActionListener(new ActionListener() {

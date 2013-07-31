@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import at.game.server.parsing.InputStreamParser;
+import at.game.server.network.parsing.InputStreamParser;
 
 /**
  * waiting for client tcp requests to the specified tcp port. Add handling for

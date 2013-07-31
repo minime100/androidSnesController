@@ -19,15 +19,27 @@ public class Controller extends Activity {
 		setContentView(R.layout.activity_controller);
 
 		Button up = (Button) findViewById(R.id.btn_up);
-		Button down = (Button) findViewById(R.id.btn_down);
-		Button left = (Button) findViewById(R.id.btn_left);
-		Button right = (Button) findViewById(R.id.btn_right);
-
-		
 		up.setOnTouchListener(new ControllerButtonsListener("up"));
+		Button down = (Button) findViewById(R.id.btn_down);
 		down.setOnTouchListener(new ControllerButtonsListener("down"));
+		Button left = (Button) findViewById(R.id.btn_left);
 		left.setOnTouchListener(new ControllerButtonsListener("left"));
+		Button right = (Button) findViewById(R.id.btn_right);
 		right.setOnTouchListener(new ControllerButtonsListener("right"));
+
+		Button start = (Button) findViewById(R.id.btn_start);
+		start.setOnTouchListener(new ControllerButtonsListener("start"));
+		Button select = (Button) findViewById(R.id.btn_select);
+		select.setOnTouchListener(new ControllerButtonsListener("select"));
+		
+		Button a = (Button) findViewById(R.id.btn_a);
+		a.setOnTouchListener(new ControllerButtonsListener("btn_a"));
+		Button b = (Button) findViewById(R.id.btn_b);
+		b.setOnTouchListener(new ControllerButtonsListener("btn_b"));
+		Button x = (Button) findViewById(R.id.btn_x);
+		x.setOnTouchListener(new ControllerButtonsListener("btn_x"));
+		Button y = (Button) findViewById(R.id.btn_y);
+		y.setOnTouchListener(new ControllerButtonsListener("btn_y"));
 	}
 
 	@Override

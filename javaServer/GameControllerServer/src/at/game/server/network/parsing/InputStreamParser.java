@@ -1,4 +1,4 @@
-package at.game.server.parsing;
+package at.game.server.network.parsing;
 
 import java.io.IOException;
 import java.io.InputStream;

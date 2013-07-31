@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class MessageBroadcaster extends Thread {
 	private String message;
-	InetSocketAddress serverAddress = new InetSocketAddress("10.0.0.2", 50101);
+	public static InetSocketAddress serverAddress = new InetSocketAddress("10.0.0.2", 50101);
 
 	public MessageBroadcaster(String message) {
 		this.message = message;

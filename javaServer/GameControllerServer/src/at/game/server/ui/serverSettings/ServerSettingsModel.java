@@ -1,9 +1,11 @@
-package at.game.server.ui.model;
+package at.game.server.ui.serverSettings;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+
+import at.game.server.ui.ModelDataChangedListener;
 
 public class ServerSettingsModel {
 	private Logger logger = Logger.getLogger(getClass());
@@ -12,7 +14,9 @@ public class ServerSettingsModel {
 	private String clientMessage;
 	private String txtStartStopButton;
 	private String serverResponse;
+	private String portTxt;
 	private int port;
+	private boolean canPortBeModified;
 	public Set<ModelDataChangedListener> dataChangedListeners = new HashSet<ModelDataChangedListener>();
 	
 	public String getLblServerStatus() {
@@ -39,11 +43,23 @@ public class ServerSettingsModel {
 	public void setTxtStartStopButton(String txtStartStopButton) {
 		this.txtStartStopButton = txtStartStopButton;
 	}
+	public String getPortTxt() {
+		return portTxt;
+	}
+	public void setPortTxt(String portTxt) {
+		this.portTxt = portTxt;
+	}
 	public int getPort() {
 		return port;
 	}
 	public void setPort(int port) {
 		this.port = port;
+	}
+	public boolean isCanPortBeModified() {
+		return canPortBeModified;
+	}
+	public void setCanPortBeModified(boolean canPortBeModified) {
+		this.canPortBeModified = canPortBeModified;
 	}
 	public String getServerResponse() {
 		return serverResponse;

@@ -23,6 +23,14 @@ public class ServerDispatcher {
 		}
 		server.start();
 	}
+
+	public void changePortAndRestart(int port) {
+		this.port = port;
+		if(isRunning()) {
+			restartServer();
+		} else
+			startServer();
+	}
 	
 	public void stopServer() {
 		server.stopServer();

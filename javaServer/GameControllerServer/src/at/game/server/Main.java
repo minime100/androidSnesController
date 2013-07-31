@@ -2,7 +2,7 @@ package at.game.server;
 
 import org.apache.log4j.Logger;
 
-import at.game.server.ui.controller.ServerSettingsController;
+import at.game.server.ui.serverSettings.ServerSettingsController;
 
 public class Main {
 

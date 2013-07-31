@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import at.gaming.gamecontroller.R;
-import at.gaming.gamecontroller.network.MessageBroadcaster;
 import at.gaming.gamecontroller.ui.settings.Settings;
 
 public class Controller extends Activity {

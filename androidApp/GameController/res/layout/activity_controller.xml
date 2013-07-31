@@ -1,34 +1,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/btn_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/btn_controller_width"
+        android:layout_height="@dimen/btn_controller_height"
+        android:layout_marginTop="@dimen/btn_controller_height"
         android:text="@string/controller_left" />
 
     <Button
         android:id="@+id/btn_up"
         android:layout_toRightOf="@id/btn_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/btn_controller_width"
+        android:layout_height="@dimen/btn_controller_height"
         android:text="@string/controller_up" />
 
     <Button
         android:id="@+id/btn_right"
         android:layout_toRightOf="@id/btn_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/btn_controller_width"
+        android:layout_height="@dimen/btn_controller_height"
+        android:layout_marginTop="@dimen/btn_controller_height"
         android:text="@string/controller_right" />
 
     <Button
         android:id="@+id/btn_down"
-        android:layout_below="@id/btn_left"
+        android:layout_below="@id/btn_up"
         android:layout_toRightOf="@id/btn_left"
         android:layout_toLeftOf="@id/btn_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/btn_controller_width"
+        android:layout_height="@dimen/btn_controller_height"
+        android:layout_marginTop="@dimen/btn_controller_height"
         android:text="@string/controller_down" />
     
     <Button 
@@ -48,30 +51,33 @@
     <Button 
         android:id="@+id/btn_y"
         android:layout_toRightOf="@id/btn_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/btn_controller_width"
+        android:layout_height="@dimen/btn_controller_height"
+        android:layout_marginTop="@dimen/btn_controller_height"
         android:text="@string/controller_y"/>
     
     <Button 
         android:id="@+id/btn_x"
         android:layout_toRightOf="@id/btn_y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/btn_controller_width"
+        android:layout_height="@dimen/btn_controller_height"
         android:text="@string/controller_x"/>
     
     <Button 
         android:id="@+id/btn_a"
         android:layout_toRightOf="@id/btn_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/btn_controller_width"
+        android:layout_height="@dimen/btn_controller_height"
+        android:layout_marginTop="@dimen/btn_controller_height"
         android:text="@string/controller_a"/>
     
     <Button 
         android:id="@+id/btn_b"
         android:layout_toRightOf="@id/btn_y"
         android:layout_below="@id/btn_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/btn_controller_width"
+        android:layout_height="@dimen/btn_controller_height"
+        android:layout_marginTop="@dimen/btn_controller_height"
         android:text="@string/controller_b"/>
 
 </RelativeLayout>

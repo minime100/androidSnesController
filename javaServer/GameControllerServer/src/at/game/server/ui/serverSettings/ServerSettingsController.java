@@ -12,8 +12,8 @@ public class ServerSettingsController {
 	private ServerDispatcher server;
 	
 	public void init() {
-		setUpServer();
 		setUpModel();
+		setUpServer();
 		setUpUi();
 	}
 

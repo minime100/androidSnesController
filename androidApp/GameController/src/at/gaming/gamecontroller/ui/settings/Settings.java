@@ -1,4 +1,4 @@
-package at.gaming.gamecontroller.ui;
+package at.gaming.gamecontroller.ui.settings;
 
 import java.net.InetSocketAddress;
 

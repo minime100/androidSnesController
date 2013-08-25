@@ -1,0 +1,7 @@
+TODO: 25.8.13
+* nintendo NS controller Model zum auswählen hinzufügen bei server + controller
+* nintendoNS controller schema skizze
+* B A buttons gleichzeitig drückbarmachen 
+* UP_RIGHT, DOWN_RIGHT, UP_LEFT, DOWN_LEFT drückbar machen!
+* Button Bereiche festlegen, anpassen,
+* A B drückgeräusche hinzufügen!
